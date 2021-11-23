@@ -6,8 +6,8 @@ import com.blaskoasky.iri.gps2.LocationLiveData
 
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val locationliveData = LocationLiveData(application)
+    private val locationLiveData = LocationLiveData(application)
 
-    fun getLocationLiveData() = locationliveData
+    fun getLocationLiveData() = locationLiveData
 
 }

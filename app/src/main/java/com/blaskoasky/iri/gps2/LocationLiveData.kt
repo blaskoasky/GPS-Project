@@ -12,13 +12,14 @@ import com.google.android.gms.location.LocationServices
 
 class LocationLiveData(context: Context) : LiveData<LocationDetails>() {
 
-    private var fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+    private var fusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(context)
 
     companion object {
-        val ONE_MINUTE : Long = 60000
-        val locationRequest : LocationRequest = LocationRequest.create().apply {
+        val ONE_MINUTE: Long = 60000
+        val locationRequest: LocationRequest = LocationRequest.create().apply {
             interval = ONE_MINUTE
-            fastestInterval = ONE_MINUTE/4
+            fastestInterval = ONE_MINUTE / 4
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
     }
@@ -26,10 +27,10 @@ class LocationLiveData(context: Context) : LiveData<LocationDetails>() {
     @SuppressLint("MissingPermission")
     override fun onActive() {
         super.onActive()
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-            location: Location -> location.also {
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location ->
+            location.also {
                 setLocationData(it)
-        }
+            }
         }
         startLocationUpdates()
     }
