@@ -1,6 +1,7 @@
-package com.blaskoasky.iri.gps2.Main
+package com.blaskoasky.iri.gps2.main
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -9,33 +10,36 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.blaskoasky.iri.gps2.MapsActivity
+import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
+import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val PERMISSION_CODE_LOCATION = 69
+    }
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var locationViewModel: LocationViewModel
-    private lateinit var geocoder: Geocoder
-    private lateinit var addreses: List<Address>
-
-    private val PERMISSION_CODE_LOCATION = 69
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        prepRequestLocationUpdates()
+        requestLocationUpdates()
     }
 
-    private fun prepRequestLocationUpdates() {
+    private fun requestLocationUpdates() {
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+                        this,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
         ) {
-            requestLocationUpdates()
+            locationUpdates()
         } else {
             val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -44,11 +48,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestLocationUpdates() {
+    private fun locationUpdates() {
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
         locationViewModel.getLocationLiveData().observe(this, { location ->
             val latitude = location.latitude
             val longitude = location.longitude
+
+            binding.btnLocation.setOnClickListener {
+                val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                intent.putExtra(EXTRA_ALTITUDE, latitude)
+                intent.putExtra(EXTRA_LONGITUDE, longitude)
+                startActivity(intent)
+            }
 
             binding.tvAddress.text = locationGeocode(latitude, longitude)
             binding.tvLatitude.text = latitude
@@ -57,22 +68,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun locationGeocode(latitude: String, longitude: String): String {
-        geocoder = Geocoder(this, Locale.getDefault())
-        addreses = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1)
+
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addreses = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
 
         return addreses[0].getAddressLine(0).toString()
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSION_CODE_LOCATION -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    requestLocationUpdates()
+                    locationUpdates()
                 } else {
                     Toast.makeText(this, "Unable to get Permission", Toast.LENGTH_SHORT).show()
                 }

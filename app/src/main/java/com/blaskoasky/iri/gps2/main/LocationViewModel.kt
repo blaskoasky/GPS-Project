@@ -1,4 +1,4 @@
-package com.blaskoasky.iri.gps2.Main
+package com.blaskoasky.iri.gps2.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

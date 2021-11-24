@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">GPS 2</string>
+    <string name="app_name">GPS Dummy</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
