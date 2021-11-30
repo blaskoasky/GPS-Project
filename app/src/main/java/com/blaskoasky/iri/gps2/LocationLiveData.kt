@@ -61,5 +61,4 @@ class LocationLiveData(context: Context) : LiveData<LocationDetails>() {
         super.onInactive()
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
-
 }
