@@ -10,11 +10,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.MapsActivity
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
+import com.blaskoasky.iri.gps2.dto.LocationDetails
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +28,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var locationViewModel: LocationViewModel
 
+    private lateinit var _adapter: LocationAdapter
+
+    private var _latitude = ""
+    private var _longitude = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnLocation.setOnClickListener {
+            val intent = Intent(this@MainActivity, MapsActivity::class.java)
+            intent.putExtra(EXTRA_ALTITUDE, _latitude)
+            intent.putExtra(EXTRA_LONGITUDE, _longitude)
+            startActivity(intent)
+        }
 
         requestLocationUpdates()
     }
@@ -54,11 +70,19 @@ class MainActivity : AppCompatActivity() {
             val latitude = location.latitude
             val longitude = location.longitude
 
-            binding.btnLocation.setOnClickListener {
-                val intent = Intent(this@MainActivity, MapsActivity::class.java)
-                intent.putExtra(EXTRA_ALTITUDE, latitude)
-                intent.putExtra(EXTRA_LONGITUDE, longitude)
-                startActivity(intent)
+            _latitude = latitude
+            _longitude = longitude
+
+            val location = ArrayList<LocationDetails>()
+            location.add(LocationDetails(longitude, latitude))
+
+            _adapter = LocationAdapter()
+            _adapter.setLatitudeLongitude(location)
+
+            with(binding.rvSimple) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = _adapter
             }
 
             binding.tvAddress.text = locationGeocode(latitude, longitude)
