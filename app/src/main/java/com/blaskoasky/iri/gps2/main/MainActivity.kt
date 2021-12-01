@@ -15,7 +15,7 @@ import com.blaskoasky.iri.gps2.MapsActivity
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
-import com.blaskoasky.iri.gps2.dto.LocationDetails
+import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var _adapter: LocationAdapter
 
+    private var _location = ArrayList<MerchantLocation>()
     private var _latitude = ""
     private var _longitude = ""
 
@@ -73,17 +74,17 @@ class MainActivity : AppCompatActivity() {
             _latitude = latitude
             _longitude = longitude
 
-            val location = ArrayList<LocationDetails>()
-            location.add(LocationDetails(longitude, latitude))
+            // DIUBAH NANTI
+            _location.add(MerchantLocation("blank", latitude, longitude))
 
             _adapter = LocationAdapter()
-            _adapter.setLatitudeLongitude(location)
-
+            _adapter.setLatitudeLongitude(_location)
             with(binding.rvSimple) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = _adapter
             }
+            //SAMPE SINI
 
             binding.tvAddress.text = locationGeocode(latitude, longitude)
             binding.tvLatitude.text = latitude

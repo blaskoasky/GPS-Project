@@ -4,23 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ItemRowBinding
-import com.blaskoasky.iri.gps2.dto.LocationDetails
+import com.blaskoasky.iri.gps2.dto.MerchantLocation
 
 class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
 
-    private var listLocation = ArrayList<LocationDetails>()
+    private var listLocation = ArrayList<MerchantLocation>()
 
-    fun setLatitudeLongitude(location: List<LocationDetails>?) {
+    fun setLatitudeLongitude(location: List<MerchantLocation>?) {
         if (location == null) return
         this.listLocation.clear()
         this.listLocation.addAll(location)
     }
 
-
     class ListViewHolder(private val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(location: LocationDetails) {
+        fun bind(location: MerchantLocation) {
             with(binding) {
-                // tvMerchant.text = location.merchant
+                tvMerchant.text = location.merchantName
                 tvLatitude2.text = location.latitude
                 tvLongitude2.text = location.longitude
             }
