@@ -1,10 +1,14 @@
 package com.blaskoasky.iri.gps2.main
 
+import android.location.Address
+import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ItemRowBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
+import java.util.*
+import kotlin.collections.ArrayList
 
 class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
 
@@ -15,6 +19,8 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
         this.listLocation.clear()
         this.listLocation.addAll(location)
     }
+
+
 
     class ListViewHolder(private val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(location: MerchantLocation) {

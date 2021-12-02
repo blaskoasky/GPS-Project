@@ -27,10 +27,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var locationViewModel: LocationViewModel
+    private lateinit var viewModel: MainViewModel
 
     private lateinit var _adapter: LocationAdapter
 
-    private var _location = ArrayList<MerchantLocation>()
+    // private var _location = ArrayList<MerchantLocation>()
     private var _latitude = ""
     private var _longitude = ""
 
@@ -46,6 +47,21 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_LONGITUDE, _longitude)
             startActivity(intent)
         }
+
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel.specimen.observe(this, {
+
+            _adapter = LocationAdapter()
+            _adapter.setLatitudeLongitude(it)
+            _adapter.notifyDataSetChanged()
+
+            with(binding.rvSimple) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = _adapter
+            }
+        })
+
 
         requestLocationUpdates()
     }
@@ -74,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             _latitude = latitude
             _longitude = longitude
 
-            // DIUBAH NANTI
+            /*// DIUBAH NANTI
             _location.add(MerchantLocation("blank", latitude, longitude))
 
             _adapter = LocationAdapter()
@@ -84,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 setHasFixedSize(true)
                 adapter = _adapter
             }
-            //SAMPE SINI
+            //SAMPE SINI*/
 
             binding.tvAddress.text = locationGeocode(latitude, longitude)
             binding.tvLatitude.text = latitude
