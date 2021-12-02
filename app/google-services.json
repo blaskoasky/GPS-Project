@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "344850036009",
+    "project_id": "my-gps-dummy",
+    "storage_bucket": "my-gps-dummy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344850036009:android:300070b4b32f7651b9f338",
+        "android_client_info": {
+          "package_name": "com.blaskoasky.iri.gps2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344850036009-93erclh5srngt204r8ds346ld9kjgpfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM7ulUsM798FGIztbrtAUap-dWN6ny7rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344850036009-93erclh5srngt204r8ds346ld9kjgpfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

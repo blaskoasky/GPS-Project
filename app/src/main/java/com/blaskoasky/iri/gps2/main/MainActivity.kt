@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.MapsActivity
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
@@ -24,20 +25,52 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var locationViewModel: LocationViewModel
+    private lateinit var viewModel: MainViewModel
+
+    private lateinit var _adapter: LocationAdapter
+
+    private var _latitude = ""
+    private var _longitude = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
+
+        binding.btnLocation.setOnClickListener {
+            val intent = Intent(this@MainActivity, MapsActivity::class.java)
+            intent.putExtra(EXTRA_ALTITUDE, _latitude)
+            intent.putExtra(EXTRA_LONGITUDE, _longitude)
+            startActivity(intent)
+        }
+
+        viewModel.specimen.observe(this, { merchantList ->
+
+            _adapter = LocationAdapter()
+            _adapter.setLatitudeLongitude(merchantList)
+            _adapter.notifyDataSetChanged()
+
+            with(binding.rvSimple) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = _adapter
+            }
+
+            merchantList
+        })
+
         requestLocationUpdates()
     }
 
     private fun requestLocationUpdates() {
         if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             locationUpdates()
         } else {
@@ -49,36 +82,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun locationUpdates() {
-        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
         locationViewModel.getLocationLiveData().observe(this, { location ->
-            val latitude = location.latitude
-            val longitude = location.longitude
+            _latitude = location.latitude
+            _longitude = location.longitude
 
-            binding.btnLocation.setOnClickListener {
-                val intent = Intent(this@MainActivity, MapsActivity::class.java)
-                intent.putExtra(EXTRA_ALTITUDE, latitude)
-                intent.putExtra(EXTRA_LONGITUDE, longitude)
-                startActivity(intent)
-            }
-
-            binding.tvAddress.text = locationGeocode(latitude, longitude)
-            binding.tvLatitude.text = latitude
-            binding.tvLongitude.text = longitude
+            binding.tvAddress.text = locationGeocode(location.latitude, location.longitude)
+            binding.tvLatitude.text = location.latitude
+            binding.tvLongitude.text = location.longitude
         })
     }
 
     private fun locationGeocode(latitude: String, longitude: String): String {
 
         val geocoder = Geocoder(this, Locale.getDefault())
-        val addreses = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
+        val addreses =
+            geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
 
         return addreses[0].getAddressLine(0).toString()
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
