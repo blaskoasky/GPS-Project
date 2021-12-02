@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestLocationUpdates() {
         if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             locationUpdates()
         } else {
@@ -95,15 +95,16 @@ class MainActivity : AppCompatActivity() {
     private fun locationGeocode(latitude: String, longitude: String): String {
 
         val geocoder = Geocoder(this, Locale.getDefault())
-        val addreses = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
+        val addreses =
+            geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
 
         return addreses[0].getAddressLine(0).toString()
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
