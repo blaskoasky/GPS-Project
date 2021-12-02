@@ -15,9 +15,7 @@ import com.blaskoasky.iri.gps2.MapsActivity
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
-import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var _adapter: LocationAdapter
 
-    // private var _location = ArrayList<MerchantLocation>()
     private var _latitude = ""
     private var _longitude = ""
 
@@ -41,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
+
         binding.btnLocation.setOnClickListener {
             val intent = Intent(this@MainActivity, MapsActivity::class.java)
             intent.putExtra(EXTRA_ALTITUDE, _latitude)
@@ -48,11 +48,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.specimen.observe(this, {
+        viewModel.specimen.observe(this, { merchantList ->
 
             _adapter = LocationAdapter()
-            _adapter.setLatitudeLongitude(it)
+            _adapter.setLatitudeLongitude(merchantList)
             _adapter.notifyDataSetChanged()
 
             with(binding.rvSimple) {
@@ -60,8 +59,9 @@ class MainActivity : AppCompatActivity() {
                 setHasFixedSize(true)
                 adapter = _adapter
             }
-        })
 
+            merchantList
+        })
 
         requestLocationUpdates()
     }
@@ -82,29 +82,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun locationUpdates() {
-        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
         locationViewModel.getLocationLiveData().observe(this, { location ->
-            val latitude = location.latitude
-            val longitude = location.longitude
+            _latitude = location.latitude
+            _longitude = location.longitude
 
-            _latitude = latitude
-            _longitude = longitude
-
-            /*// DIUBAH NANTI
-            _location.add(MerchantLocation("blank", latitude, longitude))
-
-            _adapter = LocationAdapter()
-            _adapter.setLatitudeLongitude(_location)
-            with(binding.rvSimple) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = _adapter
-            }
-            //SAMPE SINI*/
-
-            binding.tvAddress.text = locationGeocode(latitude, longitude)
-            binding.tvLatitude.text = latitude
-            binding.tvLongitude.text = longitude
+            binding.tvAddress.text = locationGeocode(location.latitude, location.longitude)
+            binding.tvLatitude.text = location.latitude
+            binding.tvLongitude.text = location.longitude
         })
     }
 
