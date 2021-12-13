@@ -13,8 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.MapsActivity
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
+import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
 import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
+import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private var _latitude = ""
     private var _longitude = ""
 
+    private var arrayListLocation: ArrayList<MerchantLocation> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +49,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, MapsActivity::class.java)
             intent.putExtra(EXTRA_ALTITUDE, _latitude)
             intent.putExtra(EXTRA_LONGITUDE, _longitude)
+            intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListLocation)
             startActivity(intent)
         }
 
-        viewModel.specimen.observe(this, { merchantList ->
+        viewModel.location.observe(this, { merchantList ->
+
+            arrayListLocation = merchantList
 
             _adapter = LocationAdapter()
             _adapter.setLatitudeLongitude(merchantList)
@@ -59,8 +66,6 @@ class MainActivity : AppCompatActivity() {
                 setHasFixedSize(true)
                 adapter = _adapter
             }
-
-            merchantList
         })
 
         requestLocationUpdates()

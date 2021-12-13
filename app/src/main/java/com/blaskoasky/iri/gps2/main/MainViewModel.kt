@@ -44,7 +44,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    internal var specimen: MutableLiveData<ArrayList<MerchantLocation>>
+    internal var location: MutableLiveData<ArrayList<MerchantLocation>>
         get() {
             return _locations
         }
