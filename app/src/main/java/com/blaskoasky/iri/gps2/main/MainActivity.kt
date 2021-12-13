@@ -18,11 +18,13 @@ import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val PERMISSION_CODE_LOCATION = 69
+        const val PERMISSION_CODE_LOCATION = 100
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -55,7 +57,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.location.observe(this, { merchantList ->
 
-            arrayListLocation = merchantList
+
+            arrayListLocation = merchantList // ganti sortedMerchantList or whatever
 
             _adapter = LocationAdapter()
             _adapter.setLatitudeLongitude(merchantList)
@@ -69,6 +72,8 @@ class MainActivity : AppCompatActivity() {
         })
 
         requestLocationUpdates()
+
+        distance(-6.307087, 106.923821, -6.339306, 106.923245)
     }
 
     private fun requestLocationUpdates() {
@@ -105,6 +110,19 @@ class MainActivity : AppCompatActivity() {
 
         return addreses[0].getAddressLine(0).toString()
     }
+
+
+    private fun distance(lat1: Double, lng1: Double, lat2: Double, lng2: Double) {
+        val p = 0.017453292519943295
+        val a = 0.5 - cos((lat2 - lat1) * p) / 2 +
+                cos(lat1 * p) * cos(lat2 * p) *
+                (1 - cos((lng2 - lng1) * p)) / 2
+
+        val distance = 12742 * asin(sqrt(a))
+
+        binding.btnLocation.text = String.format("%.2f km", distance)
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
