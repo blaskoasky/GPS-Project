@@ -44,6 +44,18 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun saveToFirebase(merchant: MerchantLocation) {
+        val document = firestore.collection("mcLocation").document(merchant.merchantId)
+
+        val set = document.update("distance", merchant.distance)
+        set.addOnSuccessListener {
+            Log.d("Firebase Save", "document saved")
+        }
+        set.addOnFailureListener {
+            Log.d("Firebase Save", "Save Failed")
+        }
+    }
+
     internal var location: MutableLiveData<ArrayList<MerchantLocation>>
         get() {
             return _locations

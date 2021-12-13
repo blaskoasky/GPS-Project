@@ -5,9 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MerchantLocation(
-        val merchantName: String = "",
-        val latitude: String = "",
-        val longitude: String = "",
-        val distance: String = "0km",
+        var merchantName: String = "",
+        var latitude: String = "",
+        var longitude: String = "",
+        var distance: String = "0km",
+        var address: String = "",
+        var merchantId: String = "",
 ) : Parcelable {
 }

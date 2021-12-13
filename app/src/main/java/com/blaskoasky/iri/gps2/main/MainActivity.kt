@@ -55,10 +55,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnSync.setOnClickListener {
+            tesSync()
+        }
+
         viewModel.location.observe(this, { merchantList ->
 
+            //merchantList.sortedBy { it.distance }
 
-            arrayListLocation = merchantList // ganti sortedMerchantList or whatever
+            arrayListLocation = merchantList
 
             _adapter = LocationAdapter()
             _adapter.setLatitudeLongitude(merchantList)
@@ -121,6 +126,15 @@ class MainActivity : AppCompatActivity() {
         val distance = 12742 * asin(sqrt(a))
 
         binding.btnLocation.text = String.format("%.2f km", distance)
+    }
+
+    //// PERCOBAAAAN <<<<<<<<<<<
+    private fun tesSync() {
+        var merchant = MerchantLocation().apply {
+            merchantId = "uhNIU7qHVrYLxdLdXIBT"
+            distance = "10.0"
+        }
+        viewModel.saveToFirebase(merchant)
     }
 
 

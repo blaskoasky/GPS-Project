@@ -14,6 +14,7 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
         if (location == null) return
         this.listLocation.clear()
         this.listLocation.addAll(location)
+        this.listLocation.sortBy { it.distance.toDouble() }
     }
 
 
@@ -29,7 +30,6 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
 
     override fun getItemCount(): Int = listLocation.size
 
-
     inner class ListViewHolder(private val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -38,6 +38,8 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
                 tvMerchant.text = location.merchantName
                 tvLatitude2.text = location.latitude
                 tvLongitude2.text = location.longitude
+                tvAddress2.text = location.address
+                tvDistance.text = location.distance
             }
         }
     }
