@@ -46,13 +46,15 @@ class MainViewModel : ViewModel() {
 
     fun saveToFirebase(merchant: MerchantLocation) {
         val document = firestore.collection("mcLocation").document(merchant.merchantId)
+        merchant.merchantId = document.id
 
-        val set = document.update("distance", merchant.distance)
+        // val set = document.update("distance", merchant.distance)
+        val set = document.set(merchant)
         set.addOnSuccessListener {
             Log.d("Firebase Save", "document saved")
         }
         set.addOnFailureListener {
-            Log.d("Firebase Save", "Save Failed")
+            Log.d("Firebase Save", it.toString())
         }
     }
 

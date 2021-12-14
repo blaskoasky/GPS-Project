@@ -14,7 +14,9 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
         if (location == null) return
         this.listLocation.clear()
         this.listLocation.addAll(location)
-        this.listLocation.sortBy { it.distance.toDouble() }
+        this.listLocation.sortBy {
+            it.merchantName
+        }
     }
 
 

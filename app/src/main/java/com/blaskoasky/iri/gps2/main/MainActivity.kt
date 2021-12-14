@@ -61,8 +61,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.location.observe(this, { merchantList ->
 
-            //merchantList.sortedBy { it.distance }
-
             arrayListLocation = merchantList
 
             _adapter = LocationAdapter()
@@ -77,8 +75,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         requestLocationUpdates()
-
-        distance(-6.307087, 106.923821, -6.339306, 106.923245)
     }
 
     private fun requestLocationUpdates() {
@@ -117,7 +113,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun distance(lat1: Double, lng1: Double, lat2: Double, lng2: Double) {
+    private fun distance(
+        lat1: Double,
+        lng1: Double,
+        lat2: Double,
+        lng2: Double,
+        mDistance: MerchantLocation
+    ) {
         val p = 0.017453292519943295
         val a = 0.5 - cos((lat2 - lat1) * p) / 2 +
                 cos(lat1 * p) * cos(lat2 * p) *
@@ -125,16 +127,32 @@ class MainActivity : AppCompatActivity() {
 
         val distance = 12742 * asin(sqrt(a))
 
-        binding.btnLocation.text = String.format("%.2f km", distance)
+        val formattedDistance = String.format("%.2f km", distance)
+
+        mDistance.distance = formattedDistance
     }
 
     //// PERCOBAAAAN <<<<<<<<<<<
     private fun tesSync() {
-        var merchant = MerchantLocation().apply {
-            merchantId = "uhNIU7qHVrYLxdLdXIBT"
-            distance = "10.0"
+        arrayListLocation.forEach {
+            distance(
+                _latitude.toDouble(),
+                _longitude.toDouble(),
+                it.latitude.toDouble(),
+                it.longitude.toDouble(),
+                it
+            )
+
+            var merchant = MerchantLocation().apply {
+                address = it.address
+                distance = it.distance
+                latitude = it.latitude
+                longitude = it.longitude
+                merchantId = it.merchantId
+                merchantName = it.merchantName
+            }
+            viewModel.saveToFirebase(merchant)
         }
-        viewModel.saveToFirebase(merchant)
     }
 
 
