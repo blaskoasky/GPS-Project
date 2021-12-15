@@ -42,7 +42,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val longitude = intent.getStringExtra(EXTRA_LONGITUDE)!!.toDouble()
 
         val myLocation = LatLng(altitude, longitude)
-        mMap.addMarker(MarkerOptions().position(myLocation).title("My location"))
+        //mMap.addMarker(MarkerOptions().position(myLocation).title("My location"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
 
         val x =

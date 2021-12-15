@@ -18,11 +18,13 @@ import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val PERMISSION_CODE_LOCATION = 69
+        const val PERMISSION_CODE_LOCATION = 100
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -51,6 +53,10 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_LONGITUDE, _longitude)
             intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListLocation)
             startActivity(intent)
+        }
+
+        binding.btnSync.setOnClickListener {
+            tesSync()
         }
 
         viewModel.location.observe(this, { merchantList ->
@@ -105,6 +111,47 @@ class MainActivity : AppCompatActivity() {
 
         return addreses[0].getAddressLine(0).toString()
     }
+
+
+    private fun distance(
+        lat1: Double,
+        lng1: Double,
+        lat2: Double,
+        lng2: Double,
+        mDistance: MerchantLocation
+    ) {
+        val p = 0.017453292519943295
+        val a = 0.5 - cos((lat2 - lat1) * p) / 2 +
+                cos(lat1 * p) * cos(lat2 * p) *
+                (1 - cos((lng2 - lng1) * p)) / 2
+
+        val distance = 12742 * asin(sqrt(a))
+
+        mDistance.distance = distance
+    }
+
+    private fun tesSync() {
+        arrayListLocation.forEach {
+            distance(
+                _latitude.toDouble(),
+                _longitude.toDouble(),
+                it.latitude.toDouble(),
+                it.longitude.toDouble(),
+                it
+            )
+
+            var merchant = MerchantLocation().apply {
+                address = it.address
+                distance = it.distance
+                latitude = it.latitude
+                longitude = it.longitude
+                merchantId = it.merchantId
+                merchantName = it.merchantName
+            }
+            viewModel.saveToFirebase(merchant)
+        }
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
