@@ -15,7 +15,7 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
         this.listLocation.clear()
         this.listLocation.addAll(location)
         this.listLocation.sortBy {
-            it.merchantName
+            it.distance
         }
     }
 
@@ -41,7 +41,7 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
                 tvLatitude2.text = location.latitude
                 tvLongitude2.text = location.longitude
                 tvAddress2.text = location.address
-                tvDistance.text = location.distance
+                tvDistance.text = String.format("%.2f km", location.distance)
             }
         }
     }

@@ -8,7 +8,7 @@ data class MerchantLocation(
         var merchantName: String = "",
         var latitude: String = "",
         var longitude: String = "",
-        var distance: String = "0km",
+        var distance: Double = 0.0,
         var address: String = "",
         var merchantId: String = "",
 ) : Parcelable {

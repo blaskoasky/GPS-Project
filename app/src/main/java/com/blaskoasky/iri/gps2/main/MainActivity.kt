@@ -127,12 +127,9 @@ class MainActivity : AppCompatActivity() {
 
         val distance = 12742 * asin(sqrt(a))
 
-        val formattedDistance = String.format("%.2f km", distance)
-
-        mDistance.distance = formattedDistance
+        mDistance.distance = distance
     }
 
-    //// PERCOBAAAAN <<<<<<<<<<<
     private fun tesSync() {
         arrayListLocation.forEach {
             distance(
