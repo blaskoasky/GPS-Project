@@ -1,4 +1,4 @@
-package com.blaskoasky.iri.gps2
+package com.blaskoasky.iri.gps2.tools
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,10 +16,10 @@ class LocationLiveData(context: Context) : LiveData<LocationDetails>() {
         LocationServices.getFusedLocationProviderClient(context)
 
     companion object {
-        val ONE_MINUTE: Long = 60000
+        val THREE_MINUTE: Long = 180000
         val locationRequest: LocationRequest = LocationRequest.create().apply {
-            interval = ONE_MINUTE
-            fastestInterval = ONE_MINUTE / 4
+            interval = THREE_MINUTE
+            fastestInterval = THREE_MINUTE / 3 // 1 Menit
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
     }

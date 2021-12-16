@@ -11,12 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.blaskoasky.iri.gps2.MapsActivity
-import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_ALTITUDE
-import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
-import com.blaskoasky.iri.gps2.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
+import com.blaskoasky.iri.gps2.maps.MapsActivity
+import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_ALTITUDE
+import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
+import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LONGITUDE
+import com.blaskoasky.iri.gps2.tools.LocationAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.*
@@ -30,13 +31,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var viewModel: MainViewModel
-
     private lateinit var _adapter: LocationAdapter
 
-    private var _latitude = ""
-    private var _longitude = ""
-
-    private var arrayListLocation: ArrayList<MerchantLocation> = ArrayList()
+    private var _myLatitude = ""
+    private var _myLongitude = ""
+    private var arrayListMerchant: ArrayList<MerchantLocation> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,19 +48,19 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLocation.setOnClickListener {
             val intent = Intent(this@MainActivity, MapsActivity::class.java)
-            intent.putExtra(EXTRA_ALTITUDE, _latitude)
-            intent.putExtra(EXTRA_LONGITUDE, _longitude)
-            intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListLocation)
+            intent.putExtra(EXTRA_ALTITUDE, _myLatitude)
+            intent.putExtra(EXTRA_LONGITUDE, _myLongitude)
+            intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListMerchant)
             startActivity(intent)
         }
 
         binding.btnSync.setOnClickListener {
-            tesSync(_latitude, _longitude)
+            merchantSaveSync(_myLatitude, _myLongitude)
         }
 
         viewModel.location.observe(this, { merchantList ->
 
-            arrayListLocation = merchantList
+            arrayListMerchant = merchantList
 
             _adapter = LocationAdapter()
             _adapter.setLatitudeLongitude(merchantList)
@@ -96,15 +95,15 @@ class MainActivity : AppCompatActivity() {
         locationViewModel.getLocationLiveData().observe(this, { location ->
 
             // keeping distance updated
-            tesSync(location.latitude, location.longitude)
+            merchantSaveSync(location.latitude, location.longitude)
 
             binding.tvAddress.text = locationGeocode(location.latitude, location.longitude)
             binding.tvLatitude.text = location.latitude
             binding.tvLongitude.text = location.longitude
 
             // PASSING MY LATLNG
-            _latitude = location.latitude
-            _longitude = location.longitude
+            _myLatitude = location.latitude
+            _myLongitude = location.longitude
         })
     }
 
@@ -117,8 +116,11 @@ class MainActivity : AppCompatActivity() {
         return addreses[0].getAddressLine(0).toString()
     }
 
+    private fun addAddressMerchant(mMerchant: MerchantLocation) {
+        mMerchant.address = locationGeocode(mMerchant.latitude, mMerchant.longitude)
+    }
 
-    private fun distance(
+    private fun addDistance(
         lat1: Double,
         lng1: Double,
         lat2: Double,
@@ -135,28 +137,33 @@ class MainActivity : AppCompatActivity() {
         mDistance.distance = distance
     }
 
-    private fun tesSync(myLat: String, myLng: String) {
-        arrayListLocation.forEach {
-            distance(
+    private fun merchantSaveSync(myLat: String, myLng: String) {
+        arrayListMerchant.forEach { merchant ->
+
+            // add distance merchant to dto
+            addDistance(
                 myLat.toDouble(),
                 myLng.toDouble(),
-                it.latitude.toDouble(),
-                it.longitude.toDouble(),
-                it
+                merchant.latitude.toDouble(),
+                merchant.longitude.toDouble(),
+                merchant
             )
 
-            val merchant = MerchantLocation().apply {
-                address = it.address
-                distance = it.distance
-                latitude = it.latitude
-                longitude = it.longitude
-                merchantId = it.merchantId
-                merchantName = it.merchantName
+            // add address merchant to dto
+            addAddressMerchant(merchant)
+
+            // save each merchant to firebase
+            val merchantSave = MerchantLocation().apply {
+                address = merchant.address
+                distance = merchant.distance
+                latitude = merchant.latitude
+                longitude = merchant.longitude
+                merchantId = merchant.merchantId
+                merchantName = merchant.merchantName
             }
-            viewModel.saveToFirebase(merchant)
+            viewModel.saveToFirebase(merchantSave)
         }
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
