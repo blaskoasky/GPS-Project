@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnSync.setOnClickListener {
-            tesSync()
+            tesSync(_latitude, _longitude)
         }
 
         viewModel.location.observe(this, { merchantList ->
@@ -94,12 +94,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun locationUpdates() {
         locationViewModel.getLocationLiveData().observe(this, { location ->
-            _latitude = location.latitude
-            _longitude = location.longitude
+
+            // keeping distance updated
+            tesSync(location.latitude, location.longitude)
 
             binding.tvAddress.text = locationGeocode(location.latitude, location.longitude)
             binding.tvLatitude.text = location.latitude
             binding.tvLongitude.text = location.longitude
+
+            // PASSING MY LATLNG
+            _latitude = location.latitude
+            _longitude = location.longitude
         })
     }
 
@@ -130,17 +135,17 @@ class MainActivity : AppCompatActivity() {
         mDistance.distance = distance
     }
 
-    private fun tesSync() {
+    private fun tesSync(myLat: String, myLng: String) {
         arrayListLocation.forEach {
             distance(
-                _latitude.toDouble(),
-                _longitude.toDouble(),
+                myLat.toDouble(),
+                myLng.toDouble(),
                 it.latitude.toDouble(),
                 it.longitude.toDouble(),
                 it
             )
 
-            var merchant = MerchantLocation().apply {
+            val merchant = MerchantLocation().apply {
                 address = it.address
                 distance = it.distance
                 latitude = it.latitude
