@@ -54,7 +54,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnSync.setOnClickListener {
+        binding.refreshLayout.setOnRefreshListener {
+
+            binding.refreshLayout.isRefreshing = false
+
             merchantSaveSync(_myLatitude, _myLongitude)
         }
 
