@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
             arrayListLocation = merchantList
 
-            _adapter = LocationAdapter()
+            _adapter = LocationAdapter(this)
             _adapter.setLatitudeLongitude(merchantList)
             _adapter.notifyDataSetChanged()
 
