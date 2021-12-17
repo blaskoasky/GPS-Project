@@ -54,6 +54,7 @@ dependencies {
 
     //added
     implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     //gps
     implementation 'com.google.android.gms:play-services-location:18.0.0'

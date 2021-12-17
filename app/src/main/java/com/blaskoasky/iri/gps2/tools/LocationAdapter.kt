@@ -1,4 +1,4 @@
-package com.blaskoasky.iri.gps2.main
+package com.blaskoasky.iri.gps2.tools
 
 import android.content.Context
 import android.content.Intent

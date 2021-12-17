@@ -1,8 +1,9 @@
-package com.blaskoasky.iri.gps2
+package com.blaskoasky.iri.gps2.maps
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
