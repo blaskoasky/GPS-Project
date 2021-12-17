@@ -17,9 +17,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
 
     companion object {
-        const val EXTRA_ALTITUDE = "extra_altitude"
+        const val EXTRA_LATITUDE = "extra_latitude"
         const val EXTRA_LONGITUDE = "extra_longitude"
-        const val EXTRA_LOCATIONS_MERCHANT = "key"
+        const val EXTRA_LOCATIONS_MERCHANT = "extra_locations_merchant"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,24 +39,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Biru biru location
         mMap.isMyLocationEnabled = true
 
-        val altitude = intent.getStringExtra(EXTRA_ALTITUDE)!!.toDouble()
-        val longitude = intent.getStringExtra(EXTRA_LONGITUDE)!!.toDouble()
-
-        val myLocation = LatLng(altitude, longitude)
-        //mMap.addMarker(MarkerOptions().position(myLocation).title("My location"))
+        val myLatitude = intent.getStringExtra(EXTRA_LATITUDE)!!.toDouble()
+        val myLongitude = intent.getStringExtra(EXTRA_LONGITUDE)!!.toDouble()
+        val myLocation = LatLng(myLatitude, myLongitude)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
 
-        val x =
+
+        val allListMerchant =
             intent.getParcelableArrayListExtra<MerchantLocation>(EXTRA_LOCATIONS_MERCHANT)
 
-        x?.forEach {
+
+        allListMerchant?.let { showAllMarkerMerchant(it) }
+
+    }
+
+    private fun showAllMarkerMerchant(allListMerchant: ArrayList<MerchantLocation>) {
+        allListMerchant.forEach {
             mMap.addMarker(
                 MarkerOptions()
                     .position(LatLng(it.latitude.toDouble(), it.longitude.toDouble()))
                     .title(it.merchantName)
             )
         }
-
     }
 
 }

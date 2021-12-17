@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import com.blaskoasky.iri.gps2.maps.MapsActivity
-import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_ALTITUDE
+import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LATITUDE
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LONGITUDE
 import com.blaskoasky.iri.gps2.tools.LocationAdapter
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLocation.setOnClickListener {
             val intent = Intent(this@MainActivity, MapsActivity::class.java)
-            intent.putExtra(EXTRA_ALTITUDE, _myLatitude)
+            intent.putExtra(EXTRA_LATITUDE, _myLatitude)
             intent.putExtra(EXTRA_LONGITUDE, _myLongitude)
             intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListMerchant)
             startActivity(intent)
