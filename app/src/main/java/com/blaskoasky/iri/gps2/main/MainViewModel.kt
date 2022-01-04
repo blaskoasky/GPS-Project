@@ -54,7 +54,7 @@ class MainViewModel : ViewModel() {
             Log.d("Firebase Save", "document saved")
         }
         set.addOnFailureListener {
-            Log.d("Firebase Save", it.toString())
+            Log.d("Firebase Failed to save", it.toString())
         }
     }
 

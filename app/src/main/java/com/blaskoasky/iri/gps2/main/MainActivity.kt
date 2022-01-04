@@ -6,11 +6,13 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
 import com.blaskoasky.iri.gps2.maps.MapsActivity
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
 
-        binding.btnLocation.setOnClickListener {
+        binding.btnShowAllMerchant.setOnClickListener {
             val intent = Intent(this@MainActivity, MapsActivity::class.java)
             intent.putExtra(EXTRA_LATITUDE, _myLatitude)
             intent.putExtra(EXTRA_LONGITUDE, _myLongitude)
@@ -77,6 +79,22 @@ class MainActivity : AppCompatActivity() {
         })
 
         requestLocationUpdates()
+        setRecycleView()
+    }
+
+    private fun setRecycleView() {
+        binding.rvSimple.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                with(binding.btnShowAllMerchant) {
+                    if (dy > 0 && visibility == View.VISIBLE) {
+                        visibility = View.GONE
+                    } else if (dy < 0 && visibility != View.VISIBLE) {
+                        visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
     }
 
     private fun requestLocationUpdates() {
@@ -100,9 +118,10 @@ class MainActivity : AppCompatActivity() {
             // keeping distance updated
             merchantSaveSync(location.latitude, location.longitude)
 
-            binding.tvAddress.text = locationGeocode(location.latitude, location.longitude)
-            binding.tvLatitude.text = location.latitude
-            binding.tvLongitude.text = location.longitude
+            with(binding.tvMyAddress) {
+                isSelected = true
+                text = locationGeocode(location.latitude, location.longitude)
+            }
 
             // PASSING MY LATLNG
             _myLatitude = location.latitude
@@ -185,8 +204,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-
-

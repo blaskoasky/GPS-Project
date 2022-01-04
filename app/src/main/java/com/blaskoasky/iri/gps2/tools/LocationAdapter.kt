@@ -1,7 +1,6 @@
 package com.blaskoasky.iri.gps2.tools
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ItemRowBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
 
-class LocationAdapter(private val mContext: Context) : RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
+class LocationAdapter(private val mContext: Context) :
+    RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
 
     private var listLocation = ArrayList<MerchantLocation>()
 
@@ -41,14 +41,16 @@ class LocationAdapter(private val mContext: Context) : RecyclerView.Adapter<Loca
 
         fun bind(location: MerchantLocation, context: Context) {
             with(binding) {
-                tvMerchant.text = location.merchantName
-                tvLatitude2.text = location.latitude
-                tvLongitude2.text = location.longitude
-                tvAddress2.text = location.address
+                tvMerchantName.text = location.merchantName
+                tvMerchantAddress.text = location.address
                 tvDistance.text = String.format("%.2f km", location.distance)
 
                 itemContainer.setOnClickListener {
-                    Toast.makeText(context, "item ${location.merchantName} clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "item ${location.merchantName} clicked",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
