@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var locationViewModel: LocationViewModel
     private lateinit var viewModel: MainViewModel
+    private lateinit var locationViewModel: LocationViewModel
     private lateinit var _adapter: LocationAdapter
 
     private var _myLatitude = ""
@@ -48,53 +48,9 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
 
-        binding.btnShowAllMerchant.setOnClickListener {
-            val intent = Intent(this@MainActivity, MapsActivity::class.java)
-            intent.putExtra(EXTRA_LATITUDE, _myLatitude)
-            intent.putExtra(EXTRA_LONGITUDE, _myLongitude)
-            intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListMerchant)
-            startActivity(intent)
-        }
-
-        binding.refreshLayout.setOnRefreshListener {
-
-            binding.refreshLayout.isRefreshing = false
-
-            merchantSaveSync(_myLatitude, _myLongitude)
-        }
-
-        viewModel.location.observe(this, { merchantList ->
-
-            arrayListMerchant = merchantList
-
-            _adapter = LocationAdapter(this)
-            _adapter.setLatitudeLongitude(merchantList)
-            _adapter.notifyDataSetChanged()
-
-            with(binding.rvSimple) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = _adapter
-            }
-        })
-
         requestLocationUpdates()
-        setRecycleView()
-    }
-
-    private fun setRecycleView() {
-        binding.rvSimple.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                with(binding.btnShowAllMerchant) {
-                    if (dy > 0 && visibility == View.VISIBLE) {
-                        visibility = View.GONE
-                    } else if (dy < 0 && visibility != View.VISIBLE) {
-                        visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
+        setLayout()
+        myLocationLiveData()
     }
 
     private fun requestLocationUpdates() {
@@ -110,6 +66,53 @@ class MainActivity : AppCompatActivity() {
                 requestPermissions(permissionRequest, PERMISSION_CODE_LOCATION)
             }
         }
+    }
+
+    private fun setLayout() {
+        binding.rvSimple.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                with(binding.btnShowAllMerchant) {
+                    if (dy > 0 && visibility == View.VISIBLE) {
+                        visibility = View.GONE
+                    } else if (dy < 0 && visibility != View.VISIBLE) {
+                        visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+
+        binding.refreshLayout.setOnRefreshListener {
+
+            binding.refreshLayout.isRefreshing = false
+
+            merchantSaveSync(_myLatitude, _myLongitude)
+        }
+
+        binding.btnShowAllMerchant.setOnClickListener {
+            val intent = Intent(this@MainActivity, MapsActivity::class.java)
+            intent.putExtra(EXTRA_LATITUDE, _myLatitude)
+            intent.putExtra(EXTRA_LONGITUDE, _myLongitude)
+            intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListMerchant)
+            startActivity(intent)
+        }
+    }
+
+    private fun myLocationLiveData() {
+        viewModel.location.observe(this, { merchantList ->
+
+            arrayListMerchant = merchantList
+
+            _adapter = LocationAdapter(this)
+            _adapter.setLatitudeLongitude(merchantList)
+            _adapter.notifyDataSetChanged()
+
+            with(binding.rvSimple) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = _adapter
+            }
+        })
     }
 
     private fun locationUpdates() {
@@ -170,7 +173,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.saveToFirebase(merchantSave)
         }
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
