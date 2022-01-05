@@ -4,7 +4,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.blaskoasky.iri.gps2.dto.MerchantLocation
+import com.blaskoasky.iri.gps2.dto.MerchantEntity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlin.math.asin
@@ -15,8 +15,8 @@ class MainViewModel : ViewModel() {
 
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    private var _locations: MutableLiveData<ArrayList<MerchantLocation>> =
-        MutableLiveData<ArrayList<MerchantLocation>>()
+    private var _locations: MutableLiveData<ArrayList<MerchantEntity>> =
+        MutableLiveData<ArrayList<MerchantEntity>>()
 
     init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
@@ -31,11 +31,11 @@ class MainViewModel : ViewModel() {
             }
 
             if (snapshot != null) {
-                val allLocations = ArrayList<MerchantLocation>()
+                val allLocations = ArrayList<MerchantEntity>()
                 val documents = snapshot.documents
 
                 documents.forEach {
-                    val location = it.toObject(MerchantLocation::class.java)
+                    val location = it.toObject(MerchantEntity::class.java)
                     if (location != null) {
                         allLocations.add(location)
                     }
@@ -46,11 +46,10 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun saveToFirebase(merchant: MerchantLocation) {
+    fun saveToFirebase(merchant: MerchantEntity) {
         val document = firestore.collection("mcLocation").document(merchant.merchantId)
         merchant.merchantId = document.id
 
-        // val set = document.update("distance", merchant.distance)
         val set = document.set(merchant)
         set.addOnSuccessListener {
             Log.d("Firebase Save", "document saved")
@@ -65,7 +64,7 @@ class MainViewModel : ViewModel() {
         lng1: Double,
         lat2: Double,
         lng2: Double,
-        mDistance: MerchantLocation
+        mDistance: MerchantEntity
     ) {
         val p = 0.017453292519943295
         val a = 0.5 - cos((lat2 - lat1) * p) / 2 +
@@ -77,8 +76,16 @@ class MainViewModel : ViewModel() {
         mDistance.distance = distance
     }
 
+    fun addOpenHours(merchant: MerchantEntity) {
+        if (merchant.openHours == "") {
+            merchant.openHours = "09:00 - 18:00"
+        } else {
+            merchant.openHours = merchant.openHours
+        }
+    }
 
-    internal var location: MutableLiveData<ArrayList<MerchantLocation>>
+
+    internal var location: MutableLiveData<ArrayList<MerchantEntity>>
         get() {
             return _locations
         }

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class MerchantLocation(
+data class MerchantEntity(
         var merchantName: String = "",
         var latitude: String = "",
         var longitude: String = "",

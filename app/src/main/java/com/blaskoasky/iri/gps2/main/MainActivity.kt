@@ -14,12 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
-import com.blaskoasky.iri.gps2.dto.MerchantLocation
+import com.blaskoasky.iri.gps2.dto.MerchantEntity
 import com.blaskoasky.iri.gps2.maps.MapsActivity
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LATITUDE
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LONGITUDE
-import com.blaskoasky.iri.gps2.tools.LocationAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.*
@@ -33,11 +32,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var locationViewModel: LocationViewModel
-    private lateinit var _adapter: LocationAdapter
+    private lateinit var _adapter: MainAdapter
 
     private var _myLatitude = ""
     private var _myLongitude = ""
-    private var arrayListMerchant: ArrayList<MerchantLocation> = ArrayList()
+    private var arrayListMerchant: ArrayList<MerchantEntity> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
             arrayListMerchant = merchantList
 
-            _adapter = LocationAdapter(this)
+            _adapter = MainAdapter(this)
             _adapter.setLatitudeLongitude(merchantList)
             _adapter.notifyDataSetChanged()
 
@@ -118,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     private fun locationUpdates() {
         locationViewModel.getLocationLiveData().observe(this, { location ->
 
-            // keeping distance updated
+            // keeps distance updated
             merchantSaveSync(location.latitude, location.longitude)
 
             with(binding.tvMyAddress) {
@@ -126,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                 text = locationGeocode(location.latitude, location.longitude)
             }
 
-            // PASSING MY LATLNG
+            // pass myLatLng
             _myLatitude = location.latitude
             _myLongitude = location.longitude
         })
@@ -141,14 +140,14 @@ class MainActivity : AppCompatActivity() {
         return address[0].getAddressLine(0).toString()
     }
 
-    private fun addAddressMerchant(mMerchant: MerchantLocation) {
+    private fun addAddressMerchant(mMerchant: MerchantEntity) {
         mMerchant.address = locationGeocode(mMerchant.latitude, mMerchant.longitude)
     }
 
     private fun merchantSaveSync(myLat: String, myLng: String) {
         arrayListMerchant.forEach { merchant ->
 
-            // add distance merchant to dto
+            // add distance gps to merchant
             viewModel.addDistance(
                 myLat.toDouble(),
                 myLng.toDouble(),
@@ -157,22 +156,27 @@ class MainActivity : AppCompatActivity() {
                 merchant
             )
 
+            // add open hours
+            viewModel.addOpenHours(merchant)
+
             // add address merchant to dto
             addAddressMerchant(merchant)
 
             // save each merchant to firebase
-            val merchantSave = MerchantLocation().apply {
-                address = merchant.address
-                distance = merchant.distance
+            val merchantSave = MerchantEntity().apply {
+                merchantName = merchant.merchantName
                 latitude = merchant.latitude
                 longitude = merchant.longitude
+                distance = merchant.distance
+                address = merchant.address
                 merchantId = merchant.merchantId
-                merchantName = merchant.merchantName
                 imgMerchant = merchant.imgMerchant
+                openHours = merchant.openHours
             }
             viewModel.saveToFirebase(merchantSave)
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

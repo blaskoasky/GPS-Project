@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.blaskoasky.iri.gps2.R
-import com.blaskoasky.iri.gps2.dto.MerchantLocation
+import com.blaskoasky.iri.gps2.dto.MerchantEntity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -49,14 +49,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         val allListMerchant =
-            intent.getParcelableArrayListExtra<MerchantLocation>(EXTRA_LOCATIONS_MERCHANT)
+            intent.getParcelableArrayListExtra<MerchantEntity>(EXTRA_LOCATIONS_MERCHANT)
 
 
         allListMerchant?.let { showAllMarkerMerchant(it) }
 
     }
 
-    private fun showAllMarkerMerchant(allListMerchant: ArrayList<MerchantLocation>) {
+    private fun showAllMarkerMerchant(allListMerchant: ArrayList<MerchantEntity>) {
         allListMerchant.forEach {
             mMap.addMarker(
                 MarkerOptions()
