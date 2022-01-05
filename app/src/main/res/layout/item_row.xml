@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/img_merchant"
             android:layout_width="80dp"
             android:layout_height="65dp"
             android:layout_margin="8dp"
@@ -38,7 +38,7 @@
             android:layout_marginTop="8dp"
             android:text="Merchant Name"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/img_merchant"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:ellipsize="end"
             android:text="Jl. Palem Barat No.3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/img_merchant"
             app:layout_constraintTop_toBottomOf="@+id/tv_merchantName" />
 
         <ImageButton
@@ -64,7 +64,7 @@
             android:background="@color/white"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/img_merchant"
             app:layout_constraintTop_toBottomOf="@+id/tv_merchantAddress"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/clock" />

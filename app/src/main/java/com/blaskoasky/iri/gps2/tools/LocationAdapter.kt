@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ItemRowBinding
 import com.blaskoasky.iri.gps2.dto.MerchantLocation
+import com.bumptech.glide.Glide
 
 class LocationAdapter(private val mContext: Context) :
     RecyclerView.Adapter<LocationAdapter.ListViewHolder>() {
@@ -44,6 +46,10 @@ class LocationAdapter(private val mContext: Context) :
                 tvMerchantName.text = location.merchantName
                 tvMerchantAddress.text = location.address
                 tvDistance.text = String.format("%.2f km", location.distance)
+                Glide.with(context)
+                    .load(location.imgMerchant)
+                    .error(R.drawable.placeplaceholder)
+                    .into(imgMerchant)
 
                 itemContainer.setOnClickListener {
                     Toast.makeText(

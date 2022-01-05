@@ -131,39 +131,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun locationGeocode(latitude: String, longitude: String): String {
 
-        val geocoder = Geocoder(this, Locale.getDefault())
-        val addreses =
-            geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
+        val geocode = Geocoder(this, Locale.getDefault())
+        val address =
+            geocode.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1) as List<Address>
 
-        return addreses[0].getAddressLine(0).toString()
+        return address[0].getAddressLine(0).toString()
     }
 
     private fun addAddressMerchant(mMerchant: MerchantLocation) {
         mMerchant.address = locationGeocode(mMerchant.latitude, mMerchant.longitude)
     }
 
-    private fun addDistance(
-        lat1: Double,
-        lng1: Double,
-        lat2: Double,
-        lng2: Double,
-        mDistance: MerchantLocation
-    ) {
-        val p = 0.017453292519943295
-        val a = 0.5 - cos((lat2 - lat1) * p) / 2 +
-                cos(lat1 * p) * cos(lat2 * p) *
-                (1 - cos((lng2 - lng1) * p)) / 2
-
-        val distance = 12742 * asin(sqrt(a))
-
-        mDistance.distance = distance
-    }
-
     private fun merchantSaveSync(myLat: String, myLng: String) {
         arrayListMerchant.forEach { merchant ->
 
             // add distance merchant to dto
-            addDistance(
+            viewModel.addDistance(
                 myLat.toDouble(),
                 myLng.toDouble(),
                 merchant.latitude.toDouble(),
@@ -182,10 +165,12 @@ class MainActivity : AppCompatActivity() {
                 longitude = merchant.longitude
                 merchantId = merchant.merchantId
                 merchantName = merchant.merchantName
+                imgMerchant = merchant.imgMerchant
             }
             viewModel.saveToFirebase(merchantSave)
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

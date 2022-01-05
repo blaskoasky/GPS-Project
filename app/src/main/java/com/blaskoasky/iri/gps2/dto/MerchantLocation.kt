@@ -11,5 +11,7 @@ data class MerchantLocation(
         var distance: Double = 0.0,
         var address: String = "",
         var merchantId: String = "",
+        var imgMerchant: String = "",
+        var openHours: String = "",
 ) : Parcelable {
 }
