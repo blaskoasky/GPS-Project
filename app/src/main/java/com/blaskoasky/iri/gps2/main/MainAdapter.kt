@@ -1,12 +1,14 @@
 package com.blaskoasky.iri.gps2.main
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ItemRowBinding
+import com.blaskoasky.iri.gps2.detail.DetailMerchantActivity
+import com.blaskoasky.iri.gps2.detail.DetailMerchantActivity.Companion.EXTRA_MERCHANT_DETAIL
 import com.blaskoasky.iri.gps2.dto.MerchantEntity
 import com.bumptech.glide.Glide
 
@@ -53,11 +55,9 @@ class MainAdapter(private val mContext: Context) :
                     .into(imgMerchant)
 
                 itemContainer.setOnClickListener {
-                    Toast.makeText(
-                        context,
-                        "item ${location.merchantName} clicked",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val intent = Intent(context, DetailMerchantActivity::class.java)
+                    intent.putExtra(EXTRA_MERCHANT_DETAIL, location)
+                    context.startActivity(intent)
                 }
             }
         }
