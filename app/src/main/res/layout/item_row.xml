@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cv_item_course"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
     android:orientation="vertical"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
     app:cardMaxElevation="4dp"
     app:cardUseCompatPadding="true">
@@ -15,96 +16,93 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_merchant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="Merchant"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/lbl_latitude"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Latitude : "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_merchant" />
-
-        <TextView
-            android:id="@+id/tv_latitude2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
-            android:text="Latitude"
-            app:layout_constraintStart_toEndOf="@+id/lbl_latitude"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/lbl_longitude"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/img_merchant"
+            android:layout_width="80dp"
+            android:layout_height="65dp"
             android:layout_margin="8dp"
             android:layout_marginStart="8dp"
-            android:text="Longitude : "
+            android:layout_marginTop="8dp"
+            android:contentDescription="merchant image"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_latitude"
-            app:layout_constraintVertical_bias="0.127" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/placeplaceholder" />
 
         <TextView
-            android:id="@+id/tv_longitude2"
+            android:id="@+id/tv_merchantName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Longitude"
-            app:layout_constraintStart_toEndOf="@+id/lbl_longitude"
-            app:layout_constraintTop_toBottomOf="@+id/tv_latitude2" />
-
-        <TextView
-            android:id="@+id/lbl_address"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Address :  "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_longitude" />
-
-        <TextView
-            android:id="@+id/tv_address2"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="8dp"
-            android:maxLines="3"
-            android:text="ADRESSSSSSSSSSSSSSSSSS"
-            app:layout_constraintStart_toEndOf="@+id/lbl_address"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_longitude" />
-
-        <TextView
-            android:id="@+id/tvDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="0km"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_merchant"
+            android:text="Merchant Name"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/img_merchant"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_merchantAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="26dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="Jl. Palem Barat No.3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_merchant"
+            app:layout_constraintTop_toBottomOf="@+id/tv_merchantName" />
 
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_merchant"
+            app:layout_constraintTop_toBottomOf="@+id/tv_merchantAddress"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/clock" />
+
+        <TextView
+            android:id="@+id/tv_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="09:00 - 18:00"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toBottomOf="@+id/tv_merchantAddress" />
+
+        <ImageView
+            android:id="@+id/img_distance"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_distance"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/distance" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:text="100.0 km"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

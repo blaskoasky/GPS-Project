@@ -1,6 +1,6 @@
-package com.blaskoasky.iri.gps2.dto
+package com.blaskoasky.iri.gps2.gps
 
-data class LocationDetails(
+data class MyLocationEntity(
         val longitude: String = "",
         val latitude: String = ""
 ) {
