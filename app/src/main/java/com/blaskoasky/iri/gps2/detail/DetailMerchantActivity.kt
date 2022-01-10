@@ -3,8 +3,10 @@ package com.blaskoasky.iri.gps2.detail
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
 import com.blaskoasky.iri.gps2.dto.MerchantEntity
+import com.bumptech.glide.Glide
 
 class DetailMerchantActivity : AppCompatActivity() {
 
@@ -22,10 +24,19 @@ class DetailMerchantActivity : AppCompatActivity() {
         val selectedMerchant = intent.getParcelableExtra<MerchantEntity>(EXTRA_MERCHANT_DETAIL)
 
         if (selectedMerchant != null) {
-            detailMerchantBinding.textView.text = selectedMerchant.merchantName
-            supportActionBar?.title = selectedMerchant.merchantName
+            Glide.with(this)
+                .load(selectedMerchant.imgMerchant)
+                .error(R.drawable.placeplaceholder)
+                .into(detailMerchantBinding.imgMainDtl)
+            with(detailMerchantBinding) {
+                tvMerchantNameDtl.text = selectedMerchant.merchantName
+                tvClockDtl.text = selectedMerchant.openHours
+                tvDistanceDtl.text = String.format("%.2f km", selectedMerchant.distance)
+                tvAddressDtl.text = selectedMerchant.address
+            }
         }
 
+        supportActionBar?.title = "Detail Merchant"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
