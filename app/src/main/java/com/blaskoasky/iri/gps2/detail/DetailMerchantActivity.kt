@@ -7,6 +7,7 @@ import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
 import com.blaskoasky.iri.gps2.dto.MerchantEntity
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class DetailMerchantActivity : AppCompatActivity() {
 
@@ -22,6 +23,11 @@ class DetailMerchantActivity : AppCompatActivity() {
         setContentView(detailMerchantBinding.root)
 
         val selectedMerchant = intent.getParcelableExtra<MerchantEntity>(EXTRA_MERCHANT_DETAIL)
+
+        BottomSheetBehavior.from(detailMerchantBinding.contentSheet).apply {
+            peekHeight = 500
+            this.state = BottomSheetBehavior.STATE_EXPANDED
+        }
 
         if (selectedMerchant != null) {
             Glide.with(this)
