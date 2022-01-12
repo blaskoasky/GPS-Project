@@ -12,6 +12,8 @@
 
     <color name="bg_background_open_close">#C5E4BE</color>
     <color name="merchant_open_text">#0957B6</color>
+    <color name="merchant_close_text">#E32828</color>
+
 
     <color name="off_white">#FAF9F6</color>
 
