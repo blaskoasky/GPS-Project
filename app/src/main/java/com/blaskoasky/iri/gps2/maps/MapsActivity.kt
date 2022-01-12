@@ -60,6 +60,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 MarkerOptions()
                     .position(LatLng(it.latitude.toDouble(), it.longitude.toDouble()))
                     .title(it.merchantName)
+                    .snippet("Open Hours: ${it.openHours}")
             )
         }
     }

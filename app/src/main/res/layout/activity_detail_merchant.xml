@@ -206,7 +206,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintHorizontal_bias="0.59"
                 app:layout_constraintStart_toEndOf="@+id/tv_distance_dtl"
                 app:layout_constraintTop_toTopOf="parent" />
 
