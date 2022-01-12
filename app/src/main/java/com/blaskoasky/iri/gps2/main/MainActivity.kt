@@ -95,6 +95,16 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_LOCATIONS_MERCHANT, arrayListMerchant)
             startActivity(intent)
         }
+
+        with(binding.myLocationContainer) {
+            setOnClickListener {
+                binding.tvMyAddress.maxLines = 3
+            }
+            setOnLongClickListener {
+                binding.tvMyAddress.maxLines = 1
+                true
+            }
+        }
     }
 
     private fun myLocationLiveData() {
@@ -121,7 +131,6 @@ class MainActivity : AppCompatActivity() {
             merchantSaveSync(location.latitude, location.longitude)
 
             with(binding.tvMyAddress) {
-                isSelected = true
                 text = locationGeocode(location.latitude, location.longitude)
             }
 

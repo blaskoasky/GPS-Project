@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="8dp"
     tools:context=".main.MainActivity">
 
@@ -44,19 +45,21 @@
 
             <TextView
                 android:id="@+id/tv_myAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:scrollHorizontally="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
-                android:text="address"
+                android:text="addressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddress"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/myLocation_container"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lbl_location" />
+                app:layout_constraintTop_toBottomOf="@id/lbl_location"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -88,14 +91,17 @@
 
             <Button
                 android:id="@+id/btn_showAllMerchant"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/custom_button_all_merchant_locations"
                 android:text="Show all merchant locations"
                 android:textAllCaps="false"
-                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/rv_simple"
                 app:layout_constraintEnd_toEndOf="parent"

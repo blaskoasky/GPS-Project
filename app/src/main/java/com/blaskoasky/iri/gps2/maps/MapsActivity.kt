@@ -2,7 +2,6 @@ package com.blaskoasky.iri.gps2.maps
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.dto.MerchantEntity
@@ -31,7 +30,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 
@@ -53,7 +52,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         allListMerchant?.let { showAllMarkerMerchant(it) }
-
     }
 
     private fun showAllMarkerMerchant(allListMerchant: ArrayList<MerchantEntity>) {
@@ -65,10 +63,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        onBackPressed()
-        return true
-    }
-
 }

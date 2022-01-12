@@ -21,6 +21,9 @@ class DetailMerchantActivity : AppCompatActivity() {
         detailMerchantBinding = ActivityDetailMerchantBinding.inflate(layoutInflater)
         setContentView(detailMerchantBinding.root)
 
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.title = "Kambing"
+
         val selectedMerchant = intent.getParcelableExtra<MerchantEntity>(EXTRA_MERCHANT_DETAIL)
 
         if (selectedMerchant != null) {
@@ -35,14 +38,5 @@ class DetailMerchantActivity : AppCompatActivity() {
                 tvAddressDtl.text = selectedMerchant.address
             }
         }
-
-        supportActionBar?.title = "Detail Merchant"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        onBackPressed()
-        return true
     }
 }
