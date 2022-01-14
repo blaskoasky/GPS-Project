@@ -1,8 +1,6 @@
 package com.blaskoasky.iri.gps2.detail
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
@@ -67,9 +65,25 @@ class DetailMerchantActivity : AppCompatActivity() {
             val merchantStart = today.atTime(merchantOpen).atZone(zone)
             val merchantEnd = today.atTime(merchantClosed).atZone(zone)
 
-            val hh = LocalDateTime.now().hour.toString()
-            val mm = LocalDateTime.now().minute.toString()
+            // output of these if it single digit, zdt will eror, it needs double digit
+            val hours = LocalDateTime.now().hour.toString()
+            val minutes = LocalDateTime.now().minute.toString()
+
+            // thus this code exists to make them double digits
+            val hh: String = if (hours.length == 1) {
+                "0$hours"
+            } else {
+                hours
+            }
+
+            val mm: String = if (minutes.length == 1) {
+                "0$minutes"
+            } else {
+                minutes
+            }
+
             val timeNow = "$hh:$mm"
+            // only accept double digits time format
             val zdt = today.atTime(LocalTime.parse(timeNow)).atZone(zone)
 
             return !(merchantStart.isAfter(zdt) || merchantEnd.isBefore(zdt))
