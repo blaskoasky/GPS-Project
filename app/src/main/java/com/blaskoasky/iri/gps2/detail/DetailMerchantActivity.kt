@@ -2,6 +2,7 @@ package com.blaskoasky.iri.gps2.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
 import com.blaskoasky.iri.gps2.dto.MerchantEntity
@@ -14,6 +15,7 @@ import java.time.ZoneId
 class DetailMerchantActivity : AppCompatActivity() {
 
     private lateinit var detailMerchantBinding: ActivityDetailMerchantBinding
+    private lateinit var reviewAdapter: ReviewAdapter
 
     companion object {
         const val EXTRA_MERCHANT_DETAIL = "extra_merchant_detail"
@@ -46,6 +48,14 @@ class DetailMerchantActivity : AppCompatActivity() {
                     tvOpen.text = "Closed"
                 }
             }
+        }
+
+        reviewAdapter = ReviewAdapter()
+        reviewAdapter.notifyDataSetChanged()
+        with(detailMerchantBinding.rvReviews) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = reviewAdapter
         }
     }
 
