@@ -35,8 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_bold2"
             android:text="John Doe"
-            android:textStyle="bold"
+            android:textColor="@color/text_color"
             app:layout_constraintStart_toEndOf="@+id/img_reviewer"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:alpha="0.8"
+            android:fontFamily="@font/montserrat_regular"
             android:text="1 day ago"
             app:layout_constraintStart_toEndOf="@+id/img_reviewer"
             app:layout_constraintTop_toBottomOf="@+id/tv_name_review" />
@@ -87,7 +90,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.8"
             android:ellipsize="end"
+            android:fontFamily="@font/montserrat_regular"
             android:maxLines="5"
             android:paddingStart="8dp"
             android:paddingEnd="16dp"

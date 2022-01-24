@@ -15,10 +15,10 @@ class MyLocationLiveData(context: Context) : LiveData<MyLocationEntity>() {
         LocationServices.getFusedLocationProviderClient(context)
 
     companion object {
-        val THREE_MINUTE: Long = 180000
+        const val ONE_MINUTE: Long = 60000
         val locationRequest: LocationRequest = LocationRequest.create().apply {
-            interval = THREE_MINUTE
-            fastestInterval = THREE_MINUTE / 3 // 1 Menit
+            interval = ONE_MINUTE
+            fastestInterval = ONE_MINUTE / 2 // 30 Seconds
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
     }

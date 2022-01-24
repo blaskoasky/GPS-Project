@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.GPS2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_blue</item>
-        <item name="colorPrimaryVariant">@color/p_light</item>
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryVariant">@color/main_blue</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="android:textColor">@color/text_color</item>
         <!-- Secondary brand color. -->
@@ -16,13 +16,25 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="CustomThemeMain" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryVariant">@color/main_blue</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">@color/main_blue</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/text_color_on_toolbar</item>
+        <item name="fontFamily">@font/montserrat_bold2</item>
+    </style>
+
     <style name="CustomTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@android:color/transparent</item>
-        <item name="colorPrimaryVariant">@color/p_light</item>
+        <item name="colorPrimaryVariant">@color/main_blue</item>
         <item name="android:textColor">@color/black</item>
         <item name="windowActionBarOverlay">true</item>
 
-        <item name="android:statusBarColor" tools:targetApi="l">@color/p_light</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/main_blue</item>
     </style>
 
 </resources>

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.dto.MerchantEntity
 import com.blaskoasky.iri.gps2.maps.MapsActivity
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
 
+        setSupportActionBar((findViewById(R.id.main_toolbar)))
         requestLocationUpdates()
         setLayout()
         myLocationLiveData()

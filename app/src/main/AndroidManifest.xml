@@ -19,7 +19,6 @@
         android:theme="@style/Theme.GPS2">
         <activity
             android:name=".detail.DetailMerchantActivity"
-            android:label="Detail Merchant"
             android:theme="@style/CustomTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -29,6 +28,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".maps.MapsActivity"
@@ -40,7 +42,9 @@
                 android:value=".main.MainActivity" />
         </activity>
 
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:theme="@style/CustomThemeMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

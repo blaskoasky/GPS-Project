@@ -57,6 +57,8 @@ class DetailMerchantActivity : AppCompatActivity() {
             setHasFixedSize(true)
             adapter = reviewAdapter
         }
+
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     private fun checkOpenHours(openHours: String): Boolean {

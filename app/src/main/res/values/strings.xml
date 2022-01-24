@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Merchant Location Nearby</string>
+    <string name="app_name">Nearby Merchant</string>
     <string name="title_activity_maps">Map</string>
 </resources>
