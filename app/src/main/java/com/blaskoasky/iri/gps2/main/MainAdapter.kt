@@ -9,7 +9,7 @@ import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ItemRowBinding
 import com.blaskoasky.iri.gps2.detail.DetailMerchantActivity
 import com.blaskoasky.iri.gps2.detail.DetailMerchantActivity.Companion.EXTRA_MERCHANT_DETAIL
-import com.blaskoasky.iri.gps2.dto.MerchantEntity
+import com.blaskoasky.iri.gps2.entity.MerchantEntity
 import com.bumptech.glide.Glide
 
 class MainAdapter(private val mContext: Context) :

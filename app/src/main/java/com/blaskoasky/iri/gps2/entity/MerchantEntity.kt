@@ -1,4 +1,4 @@
-package com.blaskoasky.iri.gps2.dto
+package com.blaskoasky.iri.gps2.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

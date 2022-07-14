@@ -14,14 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
-import com.blaskoasky.iri.gps2.dto.MerchantEntity
+import com.blaskoasky.iri.gps2.entity.MerchantEntity
 import com.blaskoasky.iri.gps2.maps.MapsActivity
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LATITUDE
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
 import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LONGITUDE
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -108,7 +107,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun myLocationLiveData() {
-        viewModel.location.observe(this, { merchantList ->
+        viewModel.location.observe(this) { merchantList ->
 
             arrayListMerchant = merchantList
 
@@ -121,11 +120,11 @@ class MainActivity : AppCompatActivity() {
                 setHasFixedSize(true)
                 adapter = _adapter
             }
-        })
+        }
     }
 
     private fun locationUpdates() {
-        locationViewModel.getLocationLiveData().observe(this, { location ->
+        locationViewModel.getLocationLiveData().observe(this) { location ->
 
             // keeps distance updated
             merchantSaveSync(location.latitude, location.longitude)
@@ -137,7 +136,7 @@ class MainActivity : AppCompatActivity() {
             // pass myLatLng
             _myLatitude = location.latitude
             _myLongitude = location.longitude
-        })
+        }
     }
 
     private fun locationGeocode(latitude: String, longitude: String): String {

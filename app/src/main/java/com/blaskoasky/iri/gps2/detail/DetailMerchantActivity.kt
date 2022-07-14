@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.R
 import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
-import com.blaskoasky.iri.gps2.dto.MerchantEntity
+import com.blaskoasky.iri.gps2.entity.MerchantEntity
 import com.bumptech.glide.Glide
 import java.time.LocalDate
 import java.time.LocalDateTime

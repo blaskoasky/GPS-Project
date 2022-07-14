@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blaskoasky.iri.gps2.R
-import com.blaskoasky.iri.gps2.dto.MerchantEntity
+import com.blaskoasky.iri.gps2.entity.MerchantEntity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
