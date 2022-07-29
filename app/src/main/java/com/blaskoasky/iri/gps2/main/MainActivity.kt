@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blaskoasky.iri.gps2.R
+import com.blaskoasky.iri.gps2.about.AboutAppActivity
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
 import com.blaskoasky.iri.gps2.entity.MerchantEntity
 import com.blaskoasky.iri.gps2.maps.MapsActivity
@@ -153,6 +157,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun merchantSaveSync(myLat: String, myLng: String) {
+
         arrayListMerchant.forEach { merchant ->
 
             // add distance gps to merchant
@@ -200,5 +205,20 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.about_app -> {
+                intent = Intent(this@MainActivity, AboutAppActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
