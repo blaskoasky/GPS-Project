@@ -53,7 +53,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
-                android:text="addressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddress"
+                android:text="PLACE HOLDER ADDRESS"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/myLocation_container"
                 app:layout_constraintHorizontal_bias="0.0"
