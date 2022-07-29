@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import androidx.lifecycle.LiveData
+import com.blaskoasky.iri.gps2.model.MyLocationModel
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 
-class MyLocationLiveData(context: Context) : LiveData<MyLocationEntity>() {
+class MyLocationLiveData(context: Context) : LiveData<MyLocationModel>() {
 
     private var fusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
@@ -53,7 +54,7 @@ class MyLocationLiveData(context: Context) : LiveData<MyLocationEntity>() {
     }
 
     private fun setLocationData(location: Location) {
-        value = MyLocationEntity(location.longitude.toString(), location.latitude.toString())
+        value = MyLocationModel(location.longitude.toString(), location.latitude.toString())
     }
 
     override fun onInactive() {

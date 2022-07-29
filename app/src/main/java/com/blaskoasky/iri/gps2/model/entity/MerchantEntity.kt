@@ -1,4 +1,4 @@
-package com.blaskoasky.iri.gps2.entity
+package com.blaskoasky.iri.gps2.model.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

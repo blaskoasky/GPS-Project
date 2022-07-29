@@ -1,19 +1,18 @@
-package com.blaskoasky.iri.gps2.detail
+package com.blaskoasky.iri.gps2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.databinding.ItemReviewBinding
-import com.blaskoasky.iri.gps2.entity.MerchantEntity
+import com.blaskoasky.iri.gps2.model.entity.MerchantEntity
 import java.util.*
 
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     private var reviews = ArrayList<MerchantEntity>()
 
-    inner class ReviewViewHolder(private val binding: ItemReviewBinding) :
+    inner class ReviewViewHolder(binding: ItemReviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {

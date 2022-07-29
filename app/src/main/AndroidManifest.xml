@@ -18,10 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GPS2">
         <activity
-            android:name=".about.AboutAppActivity"
+            android:name=".activity.AboutAppActivity"
             android:exported="false" />
         <activity
-            android:name=".splash.SplashScreenActivity"
+            android:name=".activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,12 +30,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".detail.DetailMerchantActivity"
+            android:name=".activity.DetailMerchantActivity"
             android:label="Detail Merchant"
             android:theme="@style/CustomNoActionbar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
 
         <meta-data
@@ -43,14 +43,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".maps.MapsActivity"
+            android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/CustomTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

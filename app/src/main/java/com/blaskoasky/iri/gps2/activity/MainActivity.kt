@@ -1,4 +1,4 @@
-package com.blaskoasky.iri.gps2.main
+package com.blaskoasky.iri.gps2.activity
 
 import android.Manifest
 import android.content.Intent
@@ -16,13 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.R
-import com.blaskoasky.iri.gps2.about.AboutAppActivity
+import com.blaskoasky.iri.gps2.adapter.MainAdapter
 import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
-import com.blaskoasky.iri.gps2.entity.MerchantEntity
-import com.blaskoasky.iri.gps2.maps.MapsActivity
-import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LATITUDE
-import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
-import com.blaskoasky.iri.gps2.maps.MapsActivity.Companion.EXTRA_LONGITUDE
+import com.blaskoasky.iri.gps2.viewmodel.LocationViewModel
+import com.blaskoasky.iri.gps2.viewmodel.MainViewModel
+import com.blaskoasky.iri.gps2.model.entity.MerchantEntity
+import com.blaskoasky.iri.gps2.activity.MapsActivity.Companion.EXTRA_LATITUDE
+import com.blaskoasky.iri.gps2.activity.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
+import com.blaskoasky.iri.gps2.activity.MapsActivity.Companion.EXTRA_LONGITUDE
 import java.util.*
 import kotlin.collections.ArrayList
 
