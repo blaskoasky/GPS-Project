@@ -29,7 +29,8 @@
         <activity
             android:name=".detail.DetailMerchantActivity"
             android:label="Detail Merchant"
-            android:theme="@style/CustomTheme">
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/CustomNoActionbar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".main.MainActivity" />

@@ -26,9 +26,6 @@ class DetailMerchantActivity : AppCompatActivity() {
         detailMerchantBinding = ActivityDetailMerchantBinding.inflate(layoutInflater)
         setContentView(detailMerchantBinding.root)
 
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.title = "Kambing"
-
         val selectedMerchant = intent.getParcelableExtra<MerchantEntity>(EXTRA_MERCHANT_DETAIL)
 
         if (selectedMerchant != null) {
