@@ -19,7 +19,8 @@
         android:theme="@style/Theme.GPS2">
         <activity
             android:name=".activity.AboutAppActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true">
@@ -32,11 +33,8 @@
         <activity
             android:name=".activity.DetailMerchantActivity"
             android:label="Detail Merchant"
-            android:theme="@style/CustomNoActionbar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
-        </activity>
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/CustomTheme" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -50,13 +48,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
-        <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

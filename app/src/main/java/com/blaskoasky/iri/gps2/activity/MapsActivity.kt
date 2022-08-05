@@ -47,10 +47,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
 
 
-        val allListMerchant =
-            intent.getParcelableArrayListExtra<MerchantEntity>(EXTRA_LOCATIONS_MERCHANT)
-
-
+        val allListMerchant = intent.getParcelableArrayListExtra<MerchantEntity>(EXTRA_LOCATIONS_MERCHANT)
         allListMerchant?.let { showAllMarkerMerchant(it) }
     }
 

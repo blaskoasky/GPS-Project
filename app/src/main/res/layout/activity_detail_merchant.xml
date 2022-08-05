@@ -48,10 +48,11 @@
 
             <TextView
                 android:id="@+id/tv_merchantName_dtl"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:maxLines="2"
                 android:text="Lorem Ipsum"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -83,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/button_open_close"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
@@ -94,7 +96,6 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.888"
-                app:layout_constraintStart_toEndOf="@+id/tv_merchantName_dtl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

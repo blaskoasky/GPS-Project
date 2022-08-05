@@ -15,7 +15,8 @@ class MainViewModel : ViewModel() {
 
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    private var _locations: MutableLiveData<ArrayList<MerchantEntity>> = MutableLiveData<ArrayList<MerchantEntity>>()
+    private var _locations: MutableLiveData<ArrayList<MerchantEntity>> =
+        MutableLiveData<ArrayList<MerchantEntity>>()
 
     init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
@@ -85,7 +86,7 @@ class MainViewModel : ViewModel() {
 
     fun addDescription(merchant: MerchantEntity) {
         if (merchant.description == "") {
-            merchant.description = "PLACCECHOLDER"
+            merchant.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         } else {
             merchant.description = merchant.description
         }

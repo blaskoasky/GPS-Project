@@ -1,5 +1,6 @@
 package com.blaskoasky.iri.gps2.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,9 @@ class DetailMerchantActivity : AppCompatActivity() {
         detailMerchantBinding = ActivityDetailMerchantBinding.inflate(layoutInflater)
         setContentView(detailMerchantBinding.root)
 
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        title = ""
+
         val selectedMerchant = intent.getParcelableExtra<MerchantEntity>(EXTRA_MERCHANT_DETAIL)
 
         if (selectedMerchant != null) {
@@ -41,11 +45,12 @@ class DetailMerchantActivity : AppCompatActivity() {
                 tvAddressDtl.text = selectedMerchant.address
                 tvDistanceDtl.text = checkDistance(selectedMerchant.distance)
                 tvDescription.text = selectedMerchant.description
-
                 if (checkOpenHours(selectedMerchant.openHours)) {
                     tvOpen.text = "Open"
+                    tvOpen.setTextColor(Color.parseColor("#0957B6"))
                 } else {
                     tvOpen.text = "Closed"
+                    tvOpen.setTextColor(Color.parseColor("#E32828"))
                 }
             }
         }
