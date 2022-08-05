@@ -16,16 +16,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blaskoasky.iri.gps2.R
-import com.blaskoasky.iri.gps2.adapter.MainAdapter
-import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
-import com.blaskoasky.iri.gps2.viewmodel.LocationViewModel
-import com.blaskoasky.iri.gps2.viewmodel.MainViewModel
-import com.blaskoasky.iri.gps2.model.entity.MerchantEntity
 import com.blaskoasky.iri.gps2.activity.MapsActivity.Companion.EXTRA_LATITUDE
 import com.blaskoasky.iri.gps2.activity.MapsActivity.Companion.EXTRA_LOCATIONS_MERCHANT
 import com.blaskoasky.iri.gps2.activity.MapsActivity.Companion.EXTRA_LONGITUDE
+import com.blaskoasky.iri.gps2.adapter.MainAdapter
+import com.blaskoasky.iri.gps2.databinding.ActivityMainBinding
+import com.blaskoasky.iri.gps2.model.entity.MerchantEntity
+import com.blaskoasky.iri.gps2.viewmodel.LocationViewModel
+import com.blaskoasky.iri.gps2.viewmodel.MainViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -176,6 +175,8 @@ class MainActivity : AppCompatActivity() {
             // add address merchant to dto
             addAddressMerchant(merchant)
 
+            viewModel.addDescription(merchant)
+
             // save each merchant to firebase
             val merchantSave = MerchantEntity().apply {
                 merchantName = merchant.merchantName
@@ -183,6 +184,7 @@ class MainActivity : AppCompatActivity() {
                 longitude = merchant.longitude
                 distance = merchant.distance
                 address = merchant.address
+                description = merchant.description
                 merchantId = merchant.merchantId
                 imgMerchant = merchant.imgMerchant
                 openHours = merchant.openHours

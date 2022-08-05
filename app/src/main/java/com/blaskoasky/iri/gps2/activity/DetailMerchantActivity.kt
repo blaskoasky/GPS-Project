@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blaskoasky.iri.gps2.R
-import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
 import com.blaskoasky.iri.gps2.adapter.ReviewAdapter
+import com.blaskoasky.iri.gps2.databinding.ActivityDetailMerchantBinding
 import com.blaskoasky.iri.gps2.model.entity.MerchantEntity
 import com.bumptech.glide.Glide
 import java.time.LocalDate
@@ -40,6 +40,8 @@ class DetailMerchantActivity : AppCompatActivity() {
                 tvClockDtl.text = selectedMerchant.openHours
                 tvAddressDtl.text = selectedMerchant.address
                 tvDistanceDtl.text = checkDistance(selectedMerchant.distance)
+                tvDescription.text = selectedMerchant.description
+
                 if (checkOpenHours(selectedMerchant.openHours)) {
                     tvOpen.text = "Open"
                 } else {

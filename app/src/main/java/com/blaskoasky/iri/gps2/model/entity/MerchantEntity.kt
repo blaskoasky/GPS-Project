@@ -5,13 +5,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MerchantEntity(
-        var merchantName: String = "",
-        var latitude: String = "",
-        var longitude: String = "",
-        var distance: Double = 0.0,
-        var address: String = "",
-        var merchantId: String = "",
-        var imgMerchant: String = "",
-        var openHours: String = "",
+    var merchantName: String = "",
+    var latitude: String = "",
+    var longitude: String = "",
+    var distance: Double = 0.0,
+    var description: String = "",
+    var address: String = "",
+    var merchantId: String = "",
+    var imgMerchant: String = "",
+    var openHours: String = "",
 ) : Parcelable {
 }

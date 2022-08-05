@@ -15,8 +15,7 @@ class MainViewModel : ViewModel() {
 
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    private var _locations: MutableLiveData<ArrayList<MerchantEntity>> =
-        MutableLiveData<ArrayList<MerchantEntity>>()
+    private var _locations: MutableLiveData<ArrayList<MerchantEntity>> = MutableLiveData<ArrayList<MerchantEntity>>()
 
     init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
@@ -81,6 +80,14 @@ class MainViewModel : ViewModel() {
             merchant.openHours = "09:00 - 18:00"
         } else {
             merchant.openHours = merchant.openHours
+        }
+    }
+
+    fun addDescription(merchant: MerchantEntity) {
+        if (merchant.description == "") {
+            merchant.description = "PLACCECHOLDER"
+        } else {
+            merchant.description = merchant.description
         }
     }
 
