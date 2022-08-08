@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="My Location"
+                android:text="Lokasi Saya"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,13 +99,14 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/custom_button_all_merchant_locations"
-                android:text="Show all merchant locations"
+                android:text="Tampilan Peta"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/rv_simple"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent">
 
             </Button>

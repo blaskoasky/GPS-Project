@@ -15,7 +15,7 @@ class AboutAppActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "About App"
+        title = "Tentang Aplikasi"
 
         binding.imgInstagram.setOnClickListener {
             val instagram = "https://www.instagram.com/iriantomauduta/"

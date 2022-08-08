@@ -46,10 +46,10 @@ class DetailMerchantActivity : AppCompatActivity() {
                 tvDistanceDtl.text = checkDistance(selectedMerchant.distance)
                 tvDescription.text = selectedMerchant.description
                 if (checkOpenHours(selectedMerchant.openHours)) {
-                    tvOpen.text = "Open"
+                    tvOpen.text = "Buka"
                     tvOpen.setTextColor(Color.parseColor("#0957B6"))
                 } else {
-                    tvOpen.text = "Closed"
+                    tvOpen.text = "Tutup"
                     tvOpen.setTextColor(Color.parseColor("#E32828"))
                 }
             }
