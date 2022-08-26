@@ -17,7 +17,6 @@ class MainAdapter(private val mContext: Context) :
 
     private var listLocation = ArrayList<MerchantEntity>()
 
-
     fun setLatitudeLongitude(location: List<MerchantEntity>?) {
         if (location == null) return
         this.listLocation.clear()
@@ -26,7 +25,6 @@ class MainAdapter(private val mContext: Context) :
             it.distance
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)

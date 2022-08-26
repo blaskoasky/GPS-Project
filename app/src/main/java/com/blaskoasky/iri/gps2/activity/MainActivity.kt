@@ -26,7 +26,7 @@ import com.blaskoasky.iri.gps2.viewmodel.LocationViewModel
 import com.blaskoasky.iri.gps2.viewmodel.MainViewModel
 import java.util.*
 
-class   MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         const val PERMISSION_CODE_LOCATION = 100
@@ -112,11 +112,19 @@ class   MainActivity : AppCompatActivity() {
 
     private fun myLocationLiveData() {
         viewModel.location.observe(this) { merchantList ->
+            val listLocation = ArrayList<MerchantEntity>()
 
             arrayListMerchant = merchantList
 
             _adapter = MainAdapter(this)
-            _adapter.setLatitudeLongitude(merchantList)
+
+            // DISINI NGASIH DISTANCE
+            merchantList.forEach { merchant ->
+                if (merchant.distance < 100) {
+                    listLocation.add(merchant)
+                }
+            }
+            _adapter.setLatitudeLongitude(listLocation)
             _adapter.notifyDataSetChanged()
 
             with(binding.rvSimple) {
