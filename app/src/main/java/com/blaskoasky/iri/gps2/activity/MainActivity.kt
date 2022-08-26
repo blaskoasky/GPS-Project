@@ -26,7 +26,7 @@ import com.blaskoasky.iri.gps2.viewmodel.LocationViewModel
 import com.blaskoasky.iri.gps2.viewmodel.MainViewModel
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class   MainActivity : AppCompatActivity() {
 
     companion object {
         const val PERMISSION_CODE_LOCATION = 100

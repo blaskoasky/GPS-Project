@@ -90,7 +90,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="4dp"
-                android:text="Open"
+                android:text="Buka"
                 android:textColor="@color/merchant_open_text"
                 android:textSize="18sp"
                 android:textStyle="bold"

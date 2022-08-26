@@ -52,7 +52,7 @@
             android:layout_marginEnd="26dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Jl. Palem Barat No.3"
+            android:text="Jl. Monas Raya No.1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_merchant"
             app:layout_constraintTop_toBottomOf="@+id/tv_merchantName" />
