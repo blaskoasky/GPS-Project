@@ -78,7 +78,7 @@ class MainViewModel : ViewModel() {
 
     fun addOpenHours(merchant: MerchantEntity) {
         if (merchant.openHours == "") {
-            merchant.openHours = "09:00 - 18:00"
+            merchant.openHours = "10:00 - 22:00"
         } else {
             merchant.openHours = merchant.openHours
         }

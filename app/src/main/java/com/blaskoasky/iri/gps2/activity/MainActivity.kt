@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
             // DISINI NGASIH DISTANCE
             merchantList.forEach { merchant ->
-                if (merchant.distance < 100) {
+                if (merchant.distance < 0.5) {
                     listLocation.add(merchant)
                 }
             }
